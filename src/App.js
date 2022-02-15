@@ -30,17 +30,14 @@ class App extends Component {
     const { contacts } = this.state;
     const newContact = { id: nanoid(), name, number };
     const checkUser = contacts.find(
-      contact => contact.name === newContact.name
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
-    
-      if (
-      contacts.find(
-        (contact) => contact.name.toLowerCase() === name.toLowerCase()
-      )) { return alert(`${name} is already in the contacts`); }
-    
-        this.setState(prevState => ({
-      contacts: [newContact, ...contacts],
-    })); 
+
+    checkUser
+      ? alert(`${name} is already in the contacts`)
+      : this.setState(prevState => ({
+          contacts: [newContact, ...contacts],
+        }));
   };
 
   getVisibleContacts = () => {
