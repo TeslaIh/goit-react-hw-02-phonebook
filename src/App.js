@@ -32,18 +32,21 @@ class App extends Component {
     const checkUser = contacts.find(
       contact => contact.name === newContact.name
     );
-
-    checkUser
-      ? alert(`${name} is already in the contacts`)
-      : this.setState(prevState => ({
-          contacts: [newContact, ...contacts],
-        }));
+    
+      if (
+      contacts.find(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )) { return alert(`${name} is already in the contacts`); }
+    
+        this.setState(prevState => ({
+      contacts: [newContact, ...contacts],
+    })); 
   };
 
   getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -52,7 +55,7 @@ class App extends Component {
     const VisibleContacts = this.getVisibleContacts();
 
     return (
-      <div className='App'>
+      <div className="App">
         <h1>My Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
